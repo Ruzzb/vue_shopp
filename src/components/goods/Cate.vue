@@ -193,7 +193,7 @@ export default {
     },
     // 点击按钮，添加新的分类
     async addCate() {
-      this.$ref.addCateFormRef.validate(async valid => {
+      this.$refs.addCateFormRef.validate(async valid => {
         // console.log(valid)
         // 如果return有问题，改为return('')
         if (!valid) return
@@ -212,7 +212,7 @@ export default {
     },
     // 监听对话框的关闭事件，重置表单数据
     addCateDialogClosed() {
-      this.$ref.addCateFormRef.resetFields()
+      this.$refs.addCateFormRef.resetFields()
       this.selectedKeys = []
       this.addCateForm.cat_level = 0
       this.addCateForm.cat_pid = 0
