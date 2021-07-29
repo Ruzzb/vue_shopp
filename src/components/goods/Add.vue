@@ -265,6 +265,7 @@ export default {
         this.$message.success('添加商品成功！')
         // 跳转到商品列表页面并刷新
         this.$router.push('/goods')
+        // 如果添加失败，尝试在服务器根目录下即MySQL下的data文件夹创建'/uploads/goodspics文件'
       })
     }
   },
