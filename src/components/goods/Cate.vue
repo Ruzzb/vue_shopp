@@ -40,7 +40,7 @@
            </el-pagination>
        </el-card>
        <!-- 添加分类的对话框 -->
-         <el-dialog title="添加分类" ：visible.sync="addCateDialogVisible" width:50%  @close="addCateDialogClosed">
+         <el-dialog title="添加分类" :visible.sync="addCateDialogVisible" width:50%  @close="addCateDialogClosed">
              <!-- 添加分类的表单 -->
            <el-form :model="addCateForm" :rules="addCateFormRules" ref="addCateFormRef" label-width="100px">
                <el-form-item label="分类名称: " prop="cat_name">
@@ -54,7 +54,7 @@
                    </el-cascader>
                </el-form-item>
            <span slot="footer" class="dialog-footer">
-           <el-button @click="addCateDialogVisible: false">取消</el-button>
+           <el-button @click="addCateDialogVisible = false">取消</el-button>
            <el-button type="primary" @click="addCate">确定</el-button>
            </span>
        </el-dialog>

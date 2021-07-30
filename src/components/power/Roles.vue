@@ -57,7 +57,7 @@
            </el-table>
        </el-card>
        <!-- 分配权限的对话框 -->
-       <el-dialog title="分配权限" ：visible.sync="setRightDialogVisible" width:50% @click="setRightDialogClosed">
+       <el-dialog title="分配权限" :visible.sync="setRightDialogVisible" width:50% @click="setRightDialogClosed">
            <!-- 树形控件  prop数据展示对象   node-key树节点唯一的返回值   default-expand-all为true时默认打开所有结点-->
           <el-tree :data="rightslist" :prop="treeProps" show-checkbox node-key="id" default-expand-all :default-checked-keys="defKeys"></el-tree>
            <!-- 底部区域 -->
