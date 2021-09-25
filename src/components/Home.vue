@@ -12,10 +12,10 @@
     <el-container>
       <!-- 侧边栏  -->
       <!-- 动态绑定侧边栏高度 -->
-      <el-aside :width="isCollapse?'64px':'200px'">
-        <div class="toggle-button" @click="toggleCollapse">|||</div>
+      <el-aside :width="isCollapse? '64px':'200px'">
+        <div class="toggle-button"  @click="toggleCollapse">|||</div>
         <!-- unique-opened="true"控制菜单项是否指展开一项      router开启路由属性       :default-active="$route.path"可以调试一下-->
-        <el-menu background-color="#333744" text-color="#fff" active-text-color="#409EFF" unique-opened collapse="isCollapse" :collapse-transition="flase" router :default-active="activePath">
+        <el-menu background-color="#333744" text-color="#fff" active-text-color="#409EFF" unique-opened :collapse='isCollapse' :collapse-transition="false" router :default-active="activePath">
           <!-- 一级菜单 -->
           <!-- v-for将数据渲染到网页，index，key动态绑定唯一值，item.id+''将id转化为字符串 -->
           <el-submenu :index="item.id + ''" v-for='item in menuList' :key='item.id'>
@@ -27,12 +27,12 @@
               <span>{{item.authName}}</span>
             </template>
             <!-- 二级菜单 -->
-            <el-menu-item :index="'/' + subItem.path"  v-for="subItem in item.children" :key="subItem.id"  @click="saveNavState('/ + subItem.path')">
+            <el-menu-item :index="'/' + subItem.path"  v-for="subItem in item.children" :key="subItem.id"  @click="saveNavState('/' + subItem.path)">
               <template slot="title">
               <!-- 图标 -->
               <i class="el-icon-menu"></i>
               <!-- 文本区域 -->
-              <span>选项1</span>
+              <span>{{subItem.authName}}</span>
             </template>
             </el-menu-item>
           </el-submenu>
@@ -77,15 +77,15 @@ export default {
       const { data: res } = await this.$http.get('menus')
       if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
       this.menuList = res.data
+    },
+    // 点击按钮菜单折叠,collapse属性
+    toggleCollapse() {
+      this.isCollapse = !this.isCollapse
+    },
+    // 保存被激活的路由链接
+    saveNavState(activePath) {
+      window.sessionStorage.setItem('activePath', activePath)
     }
-  },
-  // 点击按钮菜单折叠,collapse属性
-  toggleCollapse() {
-    this.isCollapse = !this.isCollapse
-  },
-  // 保存被激活的路由链接
-  saveNavState(activePath) {
-    window.sessionStorage.setItem('activePath', activePath)
   }
 }
 </script>

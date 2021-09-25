@@ -30,7 +30,7 @@
                <el-table-column  prop="add_time" label="创建时间" width="140px">
                    <template slot-scope="scope">
                        <!-- dataFormat为在main.js中定义的全局时间转换函数 -->
-                           {{scope.row.add_time | dataFormat}}
+                           {{scope.row.add_time | dateFormat}}
                    </template>
                </el-table-column>
                <el-table-column  label="操作" width="130px">
@@ -95,7 +95,7 @@ export default {
       this.getGoodsList()
     },
     async removeById(id) {
-      const confirmResult = await this.$comfirm(
+      const confirmResult = await this.$confirm(
         '此操作将永久删除该参数，是否继续？',
         '提示',
         {
@@ -105,7 +105,7 @@ export default {
         }
       ).catch(err => err)
       // 用户取消了删除操作
-      if (confirmResult !== 'comfirm') {
+      if (confirmResult !== 'confirm') {
         return this.$message.info('已取消删除')
       }
       // 确认删除

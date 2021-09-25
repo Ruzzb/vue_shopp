@@ -14,14 +14,23 @@ import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+// 导入 NProgress包对应的JS和CSS
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
 import axios from 'axios'
 // 配置请求的跟路径
 axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
-// 验证token字段
+// 验证token字段  在Request拦截器中展示进度条 NProgress.start()
 axios.interceptors.request.use(config => {
+  NProgress.start()
   config.headers.Authorization = window.sessionStorage.getItem('token')
   return config // config必须返回
+})
+// 在Response拦截器中隐藏进度条NProgress.done()
+axios.interceptors.response.use(config => {
+  NProgress.done()
+  return config
 })
 Vue.prototype.$http = axios
 
@@ -30,7 +39,7 @@ Vue.component('tree-table', TreeTable)
 // 将富文本编辑器，注册为全局可用的组件
 Vue.use(VueQuillEditor)
 // 时间过滤器
-Vue.filter('dataFormat', function(originVal) {
+Vue.filter('dateFormat', function(originVal) {
   const dt = new Date(originVal)
   const y = dt.getFullYear()
   const m = (dt.getMonth() + 1 + '').padStart(2, '0')

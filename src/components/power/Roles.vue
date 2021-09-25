@@ -14,7 +14,7 @@
               <el-button type="primary">添加角色</el-button>
             </el-col>
           </el-row>
-          <el-table :data="rloeslist" border stripe>
+          <el-table :data="rolelist" border stripe>
             <!-- 展开列 -->
             <el-table-column  type="expand">
               <template slot-scope="scope">
@@ -36,7 +36,7 @@
                       </el-col>
                       <!-- 渲染三级权限 -->
                       <el-col :span="18">
-                         <el-tag type="warning" v-for="(item3,i3) in item2.children" :key="item3.id" closable @close="removeRightById(scope.row,item3.id)" >{{item3.authName}}</el-tag>
+                         <el-tag type="warning" v-for="item3 in item2.children" :key="item3.id" closable @close="removeRightById(scope.row,item3.id)" >{{item3.authName}}</el-tag>
                       </el-col>
                     </el-row>
                   </el-col>
@@ -57,9 +57,9 @@
            </el-table>
        </el-card>
        <!-- 分配权限的对话框 -->
-       <el-dialog title="分配权限" :visible.sync="setRightDialogVisible" width:50% @click="setRightDialogClosed">
+       <el-dialog title="分配权限" :visible.sync="setRightDialogVisible" width="50%" @click="setRightDialogClosed">
            <!-- 树形控件  prop数据展示对象   node-key树节点唯一的返回值   default-expand-all为true时默认打开所有结点-->
-          <el-tree :data="rightslist" :prop="treeProps" show-checkbox node-key="id" default-expand-all :default-checked-keys="defKeys"></el-tree>
+          <el-tree :data="rightslist" :props="treeProps" show-checkbox node-key="id" default-expand-all :default-checked-keys="defKeys" ref="treeRef"></el-tree>
            <!-- 底部区域 -->
            <span slot="footer" class="dialog-footer">
            <el-button @click="setRightDialogVisible=false">取消</el-button>
@@ -100,7 +100,7 @@ export default {
     async getRolesList() {
       const { data: res } = await this.$http.get('roles')
       if (res.meta.status !== 200) {
-        return this.$messages.error('获取角色列表失败！ ')
+        return this.$message.error('获取角色列表失败！ ')
       }
       this.rolelist = res.data
     },
@@ -130,7 +130,7 @@ export default {
       // 获取所有权限数据  以tree的形式展现
       const { data: res } = await this.$http.get('rights/tree')
       if (res.meta.status !== 200) {
-        return this.$messages.error('获取权限列表失败！ ')
+        return this.$message.error('获取权限列表失败！ ')
       }
       // 获取到的权限数据保存到data中
       this.rightslist = res.data
@@ -162,9 +162,9 @@ export default {
       const idStr = keys.join(',')
       const { data: res } = await this.$http.post(`roles/${this.roleId}/rights`, { rids: idStr })
       if (res.meta.status !== 200) {
-        return this.$messages.error('分配权限失败！ ')
+        return this.$message.error('分配权限失败！ ')
       }
-      this.$messages.success('分配权限成功！ ')
+      this.$message.success('分配权限成功！ ')
       this.getRolesList()
       this.setRightDialogVisible = false
     }

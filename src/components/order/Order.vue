@@ -28,15 +28,16 @@
                       <el-tag type="danger" v-else>未付款</el-tag>
                    </template>
                </el-table-column>
-               <el-table-column prop="is_send" label="是否发货" width="width">
+               <el-table-column prop="is_send" label="是否发货">
                </el-table-column>
-               <el-table-column prop="create_time" label="下单时间" width="width">
+               <el-table-column prop="create_time" label="下单时间">
                    <template slot-scope="scope">
                       {{scope.row.create_time | dateFormat}}
                    </template>
                </el-table-column>
                <el-table-column label="操作">
-                   <template slot-scope="scope">
+                  <!-- slot-scope="scope" -->
+                   <template>
                       <el-button type="primary" icon="el-icon-edit" size="mini" @click="showBox"></el-button>
                       <el-button type="success" icon="el-icon-location" size="mini" @click="showProgressBox"></el-button>
                    </template>
@@ -49,7 +50,7 @@
            </el-pagination>
        </el-card>
        <!-- 展示修改地址的对话框 -->
-         <el-dialog title="修改地址" :visible.sync="addressVisible" width:50%  @close="addressDialogClosed">
+         <el-dialog title="修改地址" :visible.sync="addressVisible" width="50%"  @close="addressDialogClosed">
            <el-form :model="addressForm" :rules="addressFormRules" ref="addressFormRef" label-width="100px">
                <el-form-item label="省市区/县 " prop="address1">
                    <el-cascader :options="cityData" v-model="addressForm.address1" >
@@ -58,13 +59,14 @@
                <el-form-item label="详细地址" prop="address2">
                    <el-input v-model="addressForm.address2"></el-input>
                </el-form-item>
+            </el-form>
            <span slot="footer" class="dialog-footer">
            <el-button @click="addressVisible = false">取消</el-button>
            <el-button type="primary" @click="addressVisible = false">确定</el-button>
            </span>
        </el-dialog>
        <!-- 展示物流进度的对话框 -->
-       <el-dialog title="物流进度" :visible.sync="progressVisible" width:50%  @close="addressDialogClosed">
+       <el-dialog title="物流进度" :visible.sync="progressVisible" width="50%"  @close="addressDialogClosed">
            <!-- 时间线 -->
            <el-timeline >
                <el-timeline-item v-for="(activity, index) in progressInfo"
@@ -121,7 +123,7 @@ export default {
       }
       // 获取订单列表
       this.total = res.data.total
-      this.orderlist = res.data
+      this.orderlist = res.data.goods
       console.log(res)
     },
     // 监听 pagesize的改变

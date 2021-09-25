@@ -57,7 +57,7 @@
            </el-pagination>
        </el-card>
        <!-- 添加用户对话框 -->
-       <el-dialog title="添加用户" :visible.sync="addDialogVisible" width:50%  @close="addDialogClosed">
+       <el-dialog title="添加用户" :visible.sync="addDialogVisible" width="50%"  @close="addDialogClosed">
            <!-- 内容主体区 -->
            <el-form :model="addForm" :rules="addFormRules" ref="addFormRef" label-width="70px">
                <el-form-item label="用户名" prop="username">
@@ -80,7 +80,7 @@
            </span>
        </el-dialog>
        <!-- 修改用户的对话框 -->
-       <el-dialog title="修改用户" ：visible.sync="editDialogVisible" width:50%  @close="editDialogClosed">
+       <el-dialog title="修改用户" :visible.sync="editDialogVisible"  width="50%" @close="editDialogClosed">
            <!-- 内容主体区 -->
            <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="70px">
                <el-form-item label="用户名">
@@ -100,7 +100,7 @@
            </span>
        </el-dialog>
        <!-- 分配角色的对话框 -->
-        <el-dialog title="分配角色" ：visible.sync="setRoleDialogVisible" width:50% @close="setRoleDialogClosed">
+        <el-dialog title="分配角色" :visible.sync="setRoleDialogVisible" width="50%"   @close="setRoleDialogClosed">
            <div>
              <p>当前的用户:{{userInfo.username}}</p>
              <p>当前的角色:{{userInfo.role_name}}</p>
@@ -218,7 +218,7 @@ export default {
       // 获取用户列表
       this.userlist = res.data.userlist
       this.total = res.data.total
-      console.log(res)
+      // console.log(res)
     },
     // 监听 pagesize 改变的事件
     handleSizeChange(newSize) {
